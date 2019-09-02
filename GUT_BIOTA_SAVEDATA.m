@@ -14,20 +14,20 @@ root_0       = './SIM_RESULTS/';
 for k=1:length(trtCountVec)
     % for k=1
     trtCount   = trtCountVec(k); %once in every 30 days
-    filname    = ['TOTAL_' num2str(trtTime) '_COUNT_' num2str(trtCount) '_INFS_' num2str(infCount)];
+    filname    = ['TL_' num2str(trtTime) '_N_' num2str(trtCount)];
     directory  = [root_0 filname '/'];
     trtInit =[];trtLen =[];samplePops=[];c0counter=[];com=[];
     for s=1:size(dir([directory '*.txt']),1)/4
         [k s]
-        filname01 = [directory 'schedule_trtInit_' num2str(s-1) '.txt'];
-        filname02 = [directory 'schedule_trtLen_'  num2str(s-1) '.txt'];
-        filname03 = [directory 'samplePops_'  num2str(s-1) '.txt'];
-        filname04 = [directory 'c0counter_' num2str(s-1) '.txt'];
+        filname01 = [directory 'schedule_trtInit.txt'];
+        filname02 = [directory 'schedule_trtLen.txt'];
+        filname03 = [directory 'samplePops.txt'];
+        filname04 = [directory 'extCounter.txt'];
         if((exist(filname01, 'file')+exist(filname02, 'file')+exist(filname03, 'file')+exist(filname04, 'file')==8))
-            trtInit     = [trtInit;readTxtFile(['schedule_trtInit_' num2str(s-1)], directory)];
-            trtLen      = [trtLen; readTxtFile(['schedule_trtLen_' num2str(s-1)], directory)];
-            samplePops  = [samplePops; readTxtFile(['samplePops_' num2str(s-1)], directory)];
-            c0counter   = [c0counter;  readTxtFile(['c0counter_'  num2str(s-1)], directory)];
+            trtInit     = [trtInit;readTxtFile(['schedule_trtInit'], directory)];
+            trtLen      = [trtLen; readTxtFile(['schedule_trtLen'], directory)];
+            samplePops  = [samplePops; readTxtFile(['samplePops'], directory)];
+            c0counter   = [c0counter;  readTxtFile(['extCounter'], directory)];
             maxSize     = min([size(trtInit,1),size(trtLen,1),size(samplePops,1),size(c0counter,1)]);
             trtInit     = trtInit(1:maxSize,:);
             trtLen      = trtLen(1:maxSize,:);
