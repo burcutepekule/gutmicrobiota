@@ -154,15 +154,15 @@ To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PR
 $ cd ./Desktop/
 $ git clone https://github.com/burcutepekule/gutmicrobiota.git
 ```
-- To run the simulations and generate data, open the terminal and type,
+- To run the simulations and generate data, stay in the terminal and type,
 
 ```sh 
-$ cd ./Desktop/gutmicrobiota/
+$ cd ./gutmicrobiota/
 $ chmod +x ./GUT_BIOTA_SIM.sh
 $ ./GUT_BIOTA_SIM.sh
 ```
 - After all the simulations are complete, open MATLAB and run ``GUT_BIOTA_SAVEDATA.m``.
--  After the .mat files are generated, stay in MATLAB and run ``CREATE_DATASETS_PI.m``.
+- After the .mat files are generated, stay in MATLAB and run ``CREATE_DATASETS_PI.m``.
 - After the .csv files are generated, go back to the terminal and type,
 
 ```sh
