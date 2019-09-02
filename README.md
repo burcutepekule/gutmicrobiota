@@ -1,134 +1,138 @@
-# gutmicrobiota
-Repository for the manuscript "Quantifying the impact of treatment history on plasmid-mediated resistance evolution in human gut microbiota" by Burcu Tepekule, Pia Abel zur Wiesch, Roger Kouyos, Sebastian Bonhoeffer
+# Gut Microbiota Model
+Repository for the manuscript _"Quantifying the impact of treatment history on plasmid-mediated resistance evolution in human gut microbiota"_  by Burcu Tepekule, Pia Abel zur Wiesch, Roger Kouyos, Sebastian Bonhoeffer.
 
-**STEP 0 : REQUIRED LIBRARIES**
+**Getting Started : Required Libraries**
 
 Two libraries are required for the code to run properly. Please refer to the websites of the libraries to install them to your local environment.
 
 1) GSL - GNU Scientific Library : https://www.gnu.org/software/gsl/
 2) Boost : https://www.boost.org/
 
-**STEP 1 : RUNNING C++ CODE TO GENERATE DATA**
+# Step 1 : Running Simulations & Data Generation
+### Related Scripts
 
-**FILES**
+``GUT_BIOTA_SIM.cpp`` : Main script for the hybrid deterministic-stochastic simulations of the model proposed in the manuscript. Please refer to the comments in the file for more information on how the script works.
 
-GUT_BIOTA_SIM.cpp : This is the main script which has the hybrid deterministic-stochastic simulation for the model proposed in the manuscript. Please refer to the comments in the file for more information on how the script works.
+``GUT_BIOTA_SIM.sh`` : Bash script to generate the executable and run it.
 
-
-GUT_BIOTA_SIM.sh : This is the bash script to generate the executable and run it.
-
-**HOW IT MAKE IT WORK**
+### Workflow
 
 1) Open the Terminal
-2) Go to the directory you have downloaded the GUT_BIOTA_SIM.cpp and GUT_BIOTA_SIM.sh (cd ./Downloads/gutbiota/)
-3) Give permission to the bash script by typing the following : chmod +x ./GUT_BIOTA_SIM.sh
-4) Run the bash script by typing the following : ./GUT_BIOTA_SIM.sh
+2) Go to the directory you have cloned the repository. As an example, if you cloned the repository to your ``Desktop`` folder
 
-**WHAT IT DOES**
+```sh 
+$ cd ./Desktop/gutbiota/
+```
+3) Give permission to the bash script by typing the following
 
-1) The bash script will generate a subfolder called "SIM_RESULTS", where all the simulation results will be saved.
+```sh
+$ chmod +x ./GUT_BIOTA_SIM.sh
+```
 
-2) Simulation results for different maximum time for treatment period, for each number of treatment courses, and for each number of random recolonizations will be saved in a different folder. Folders are named as follows : "TOTAL_(number of max days for treatment period) _ COUNT _ (number of treatment courses) _ INFS _ (number of recolonizations)"
+4) Run the bash script by typing the following 
 
-3) Since no recolonization is considered in the results in the manuscript for now, the maximum time for treatment period is 1000 days, and the number of treatment courses vary from 1 to 20, the folders will be named as "TOTAL_1000_COUNT_1_INFS_0", "TOTAL_1000_COUNT_1_INFS_0", ... , "TOTAL_1000_COUNT_20_INFS_0".
+```sh
+$ ./GUT_BIOTA_SIM.sh
+```
+The bash script will generate a subfolder called ``SIM_RESULTS``, where all the simulation results will be saved.
 
-4) In each folder, you will see four different text files indexed with a "_ 0.txt" at the end. 
+Simulation results for,
+  - Different maximum time for treatment period (denoted by $$\,T_L$$ (Figure 7) in the manuscript), 
+  - Each number of treatment courses (denoted by $$\,N$$ in the manuscript),  
 
-("_ 0" ending represents the loop index. If the user wants to run the simulations in parallel, the user can submit multiple loops with same number of simulations in it. In this case, the code will generate files with "_ 1", "_ 2", until "_ (number of loops -1)". This can be done via having another for loop in the bash script. For now, the script only submits one loop, and therefore only files with "_ 0" ending is created)  
+will be saved in a different folder with the name indexed as ``TL_<number of max days for treatment period>_N_<number of treatment courses>``. Since the maximum time for treatment period is $$\,T_L=1000$$ days, and the number of treatment courses $$\,N$$ vary from 1 to 20, the folders will be named as ``TL_1000_N_1``, ``TL_1000_N_2``, ..., ``TL_1000_N_3``.
 
-Each simulation result is kept in a different row (If you run 10 simulations, then you will have 10 rows for each of the files below, with different number of columns depending on the file).T he files are named as follows,
+In each folder, you will see four different text files, where each simulation result is kept in a different row (If you run $$10$$ simulations, then you will have $$10$$ rows for each of the files below, with different number of columns depending on the file),
 
-	- c0counter_0.txt : Two column text file keeping the information about the time step when C_0+ and C_1+ goes extinct. 
+- ``extCounter.txt`` : Two column text file keeping the information about the time step when $$C_0^{+}$$ and $$C_1^{+}$$ goes extinct.
+- ``samplePops.txt`` : Sampled population abundances  $$[t,C_0,C_0^{+},C_1,C_1^{+}]$$ at sampling times $$t$$ for the drug-free period after the treatment period (refer to Figure 7 in the manuscript). Each row represents another simulation with As an example, for the first simulation, if the last treatment is at day $$120$$, and the last treatment lasts for $$5$$ days, and the time step of the simulation is $$0.01$$, you will see a text file with the following columns for the first row,
 
-	- samplePops_0.txt : Sampled population abundances  [t,C_0,C_0^(+),C_1,C_1^(+)] at sampling times (t) for the drug-free time after treatment. As an example, if the last treatment was at day 120, and the last treatment lasts for 5 days, and the time step of the simulation is 0.01, you will see a text file like,
+| day ($$T_{df}=0$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | day ($$T_{df}=0$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | ... | day ($$T_{df}=360$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | 
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+125.01       | ... | ...     | ... | ...     | 140.01        | ... | ...     | ... | ...     | ... | 485.01         | ... | ...     | ... | ...     
 
-	day (T_df=0) | C_0 | C_0^(+) | C_1 | C_1^(+) | day (T_df=15) | C_0 | C_0^(+) | C_1 | C_1^(+) | ... | day (T_df=360) | C_0 | C_0^(+) | C_1 | C_1^(+)
-	125.01       | ... | ...     | ... | ...     | 140.01        | ... | ...     | ... | ...     | ... | 485.01         | ... | ...     | ... | ...     
-	
-where each row will represent another simulation with different values for day (T_df=0), day (T_df=15), ... , day (T_df=360).
+- ``schedule_trtInit.txt`` : Initiation day of treatments. Number of columns will depend on the number of treatments, where $$\,i^{th}$$ column keeps the initiation day of the $$\,i^{th}$$ treatment, denoted by $$\,t_{i}$$ in the manuscript (Figure 7).
 
-	- schedule_trtInit_0.txt : Initiation day of treatments. (number of columns will depend on the number of treatments)
+- ``schedule_trtLen.txt`` : Duration of treatments. Number of columns will depend on the number of treatments, where $$\,i^{th}$$ column keeps the duration of the $$\,i^{th}$$ treatment, denoted by $$\,d_{i}$$ in the manuscript (Figure 7).
 
-	- schedule_trtLen_0.txt : Duration of treatments. (number of columns will depend on the number of treatments)
+# Step 2 : Reading and Saving Data
+When all simulations are done, you will have the following folders and text files,
 
+``./SIM_RESULTS/TL_1000_N_1/extCounter.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/samplePops.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtInit.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtLen.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/TL_1000_N_2/extCounter.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/samplePops.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtInit.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtLen.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\vdots$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/TL_1000_N_20/extCounter.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/samplePops.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtInit.txt``
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtLen.txt``
 
-**STEP 2 : RUNNING MATLAB CODE TO READ AND SAVE DATA**
+These text files need to be read and converted to ``.mat`` files for further processing via $$\text{MATLAB}$$. 
+### Related Scripts
 
-When all simulations are done, you will have the following folders and files,
+``GUT_BIOTA_SAVEDATA.m`` : $$\text{MATLAB}$$ script that goes through all the text files generated, and creates two ``.mat`` files, 
 
-./SIM_RESULTS/TOTAL_1000_COUNT_1_INFS_0/c0counter_0.txt
-                                       /samplePops_0.txt
-				       /schedule_trtInit_0.txt
-                                       /schedule_trtLen_0.txt
+- ``allData.mat`` : Raw data including the binary sequence transformation of each simulation (explained in the Supplementary information) is saved.
+- ``predictorMat.mat`` : Predictor matrix generated for the predictor importance analysis. Each column represents a different predictor, in the following order
 
-             /TOTAL_1000_COUNT_2_INFS_0/c0counter_0.txt
-                                       /samplePops_0.txt
-				       /schedule_trtInit_0.txt
-                                       /schedule_trtLen_0.txt
-			.....
+| Number of Treatments $$(N)$$ | Total days of treatment $$(\sum d_i)$$ | Duration of last treatment $$(d_N)$$ | Days to first treatment $$(t_1-T_I)$$ | Drug-free time after last treatment $$(T_{df})$$ | Coefficient of variation $$(c_v)$$  | Prevalence of resistance $$\Big(C_0^{+}/(C_0+C_0^{+})\Big)$$ | 
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 
-             /TOTAL_1000_COUNT_20_INFS_0/c0counter_0.txt
-                                        /samplePops_0.txt
-				        /schedule_trtInit_0.txt
-                                        /schedule_trtLen_0.txt
+``CREATE_DATASETS_PI.m`` : Creates dataset tables (.csv files) suitable for building classification and regression forests for the predictor importance analysis. Currently, this script generates subfolders ``PI_DATA_5E<p>``  for each sample size $$5\times10^{p}$$. Currently, only sample size $$5\times10^{3}$$ is used, but the choice of sample size(s) is customizable. Dataset tables will be named as follows, 
 
+``./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv`` : Classification dataset with sample size of $$5\times10^3$$ data points.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/DATA_REG_TRAIN_POSONLY.csv`` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Regression dataset with sample size of $$5\times10^3$$ data points.
 
-These files need to be read and analyzed. This is done via MATLAB, using GUT_BIOTA_SAVEDATA.m This script goes through all the files generated, and creates two .mat files, 
+These .csv files will be used for the predictor importance analysis in the next step.
 
-- allData.mat : where all the raw data including the binary sequence transformation of each simulation (explained in the Supplementary information) is also saved.
+# STEP 3 : Predictor Importance Analysis
 
-- predictorMat.mat : where each column is a predictor for the predictor importance analysis, in the following order
+### Related Scripts
 
-	Number of Treatments (N) | Total days of treatment (sum_di) | Duration of last treatment (d_N) | Days to first treatment (t_1-T_I) | Drug-free time after last treatment (T_df) | Coefficient of variation (c_v) | Prevalence of resistance 
+``PI_CLS.r`` : R script running predictor importance analysis using classification forests.
 
-predictorMat.mat will can used to generate datasets for predictor importance analysis
+``PI_REG.r`` : R script running predictor importance analysis using regression forests.
 
-**STEP 3 : RUNNING MATLAB CODE FOR PREPARING DATA FOR THE PREDICTOR IMPORTANCE ANALYSIS**
+``PI.sh `` : Bash script to run the R scripts in loops for different sample and tree sizes.
 
-For predictor importance analysis, first the user should create datasets suitable for building classification and regression forests. 
+``PLOT_PREDICTOR_IMP.m`` : MATLAB script to plot the predictor importance results, which is saved in the same directory as an .eps file.
 
-This is done via CREATE_DATASETS_PI.m, which generates 3 different folder with .csv files with different number of samples (this is customizable in the matlab code. These folders and files are named as follows,
-
-
-./R/PI_DATA_5E2/DATA_REG_TRAIN_CLS_BLNCD.csv (balanced classification dataset with sample size of 5E2 data points)
-		     /DATA_REG_TRAIN_POSONLY.csv   (regression dataset with sample size of 5E2 data points)
-
-./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv (balanced classification dataset with sample size of 5E3 data points)
-		     /DATA_REG_TRAIN_POSONLY.csv   (regression dataset with sample size of 5E3 data points)
-
-./R/PI_DATA_5E4/DATA_REG_TRAIN_CLS_BLNCD.csv (balanced classification dataset with sample size of 5E4 data points)
-		     /DATA_REG_TRAIN_POSONLY.csv   (regression dataset with sample size of 5E4 data points)
-
-
-These .csv files will be used for the predictor importance analysis in the next step
-
-**STEP 4 : RUNNING R CODE FOR THE PREDICTOR IMPORTANCE ANALYSIS**
-
-Required R code is run from a bash file called PI.sh as follows, 
+### Workflow
 
 1) Open the Terminal
-2) Go to the directory you have downloaded the PI.sh (cd ./Downloads/gutbiota/)
-3) Give permission to the bash script by typing the following : chmod +x ./PI.sh
-4) Run the bash script by typing the following : ./PI.sh
+2) Go to the directory you have cloned the repository. Most likely, this is going to be your ``Downloads`` folder
 
-The bash script will generate the following text files in a loop for different sample sizes (5E2, 5E3, 5E4) and different number of trees (50 100 150 200) named as follows, 
+```sh 
+$ cd ./Desktop/gutbiota/
+```
+3) Give permission to the bash script by typing the following
+
+```sh
+$ chmod +x ./PI.sh
+```
+
+4) Run the bash script by typing the following 
+
+```sh
+$ ./PI.sh
+```
+The bash script will generate a subfolder called ``PI_RESULTS``, where all the predictor importance analysis results will be saved. Text files will be generated for two different types of predictor importance analysis (classical and conditional), four different number of tree sizes $$(50,\,100,\,150,\,200)$$, and one sample size (currently only $$5\times 10^3$$) used in growing the random forests. These files will be named as
+
+``./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E3.txt `` : Classical classification predictor importance results with sample size of $$5\times10^3$$ data points. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of $$5\times10^3$$ data points. 
+
+Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. 
+
+**Please feel free to contact me in case of any questions by sending an email to burcu.tepekule@env.ethz.ch**
 
 
-./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E<power of sample size>.txt ("classical" classification predictor importance results)
-              /tableCond_T<number of trees>_CLS_S_5E<power of sample size>.txt   ("conditional" classification predictor importance results - used in the manuscript to avoid bias due to correlations between variables)
-              /tableNormal_T<number of trees>_REG_S_5E<power of sample size>.txt ("classical" regression predictor importance results)
-              /tableCond_T<number of trees>_REG_S_5E<power of sample size>.txt   ("conditional" regression predictor importance results - used in the manuscript to avoid bias due to correlations between variables)
+## APPENDIX
 
-*IMPORTANT* -> Results in the manuscript can be reproduced ONLY by using the conditional predictor importance results, since they account for the biases for the correlations among the variables.
+#### Customizing simulations for recolonization events
 
-**STEP 5 : RUNNING MATLAB CODE TO NORMALIZE AND PLOT PREDICTOR IMPORTANCE RESULTS**
-
-run PLOT_PREDICTOR_IMP.m to generate the predictor importance results, which is saved in the same directory as a figure.
-
-
-**END**
-
-Please feel free to contact me in case of any questions by sending an email to burcu.tepekule@env.ethz.ch
-
-
-
+Currently, the model used in the manuscript only has **one** event of colonization, and it is prior to all the treatment courses. User can add multiple colonization events at random times during the treatment period, by adjusting ``totalInfs`` and ``infCountVector``, and set the population abundances for colonization events by adjusting ``infAbundVec`` in ``GUT_BIOTA_SIM.cpp``. Please refer to the comments in ``GUT_BIOTA_SIM.cpp`` for more information.
