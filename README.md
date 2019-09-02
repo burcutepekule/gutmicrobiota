@@ -1,12 +1,28 @@
 # Gut Microbiota Model
 Repository for the manuscript _"Quantifying the impact of treatment history on plasmid-mediated resistance evolution in human gut microbiota"_  by Burcu Tepekule, Pia Abel zur Wiesch, Roger Kouyos, Sebastian Bonhoeffer.
 
-**Getting Started : Required Libraries**
+# Step 0 : Getting started
+### Required Libraries
 
 Two libraries are required for the code to run properly. Please refer to the websites of the libraries to install them to your local environment.
 
 1) GSL - GNU Scientific Library : https://www.gnu.org/software/gsl/
 2) Boost : https://www.boost.org/
+
+### Cloning the repository
+1) Open the Terminal
+2) Go to the directory you wish to clone the repository. As an example, if you want to clone the repository to your ``Desktop`` folder
+
+```sh 
+$ cd ./Desktop/
+```
+
+3) Clone the repository by typing the following
+
+```sh 
+$ git clone https://github.com/burcutepekule/gutmicrobiota
+```
+You will have a folder named ``gutmicrobiota'' on your desktop including all files necessary to run the simulations.
 
 # Step 1 : Running Simulations & Data Generation
 ### Related Scripts
@@ -21,7 +37,7 @@ Two libraries are required for the code to run properly. Please refer to the web
 2) Go to the directory you have cloned the repository. As an example, if you cloned the repository to your ``Desktop`` folder
 
 ```sh 
-$ cd ./Desktop/gutbiota/
+$ cd ./Desktop/gutmicrobiota/
 ```
 3) Give permission to the bash script by typing the following
 
@@ -131,10 +147,17 @@ To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PR
 **Please feel free to contact me in case of any questions by sending an email to burcu.tepekule@env.ethz.ch**
 
 ## SUMMARY
+
+- To clone the repository to your desktop, open the terminal and type,
+
+```sh 
+$ cd ./Desktop/
+$ git clone https://github.com/burcutepekule/gutmicrobiota
+```
 - To run the simulations and generate data, open the terminal and type,
 
 ```sh 
-$ cd ./Desktop/gutbiota/
+$ cd ./Desktop/gutmicrobiota/
 $ chmod +x ./GUT_BIOTA_SIM.sh
 $ ./GUT_BIOTA_SIM.sh
 ```
