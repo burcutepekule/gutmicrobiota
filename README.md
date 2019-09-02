@@ -20,7 +20,7 @@ $ cd ./Desktop/
 3) Clone the repository by typing the following
 
 ```sh 
-$ git clone https://github.com/burcutepekule/gutmicrobiota
+$ git clone https://github.com/burcutepekule/gutmicrobiota.git
 ```
 You will have a folder named ``gutmicrobiota'' on your desktop including all files necessary to run the simulations.
 
@@ -152,7 +152,7 @@ To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PR
 
 ```sh 
 $ cd ./Desktop/
-$ git clone https://github.com/burcutepekule/gutmicrobiota
+$ git clone https://github.com/burcutepekule/gutmicrobiota.git
 ```
 - To run the simulations and generate data, open the terminal and type,
 
