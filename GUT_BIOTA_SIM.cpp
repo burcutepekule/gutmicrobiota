@@ -1725,6 +1725,7 @@ int main( int argc , char **argv )
     for(unsigned k=0; k<trtCountVector.size(); ++k){ // loop over the number of treatments (N in the paper)
         totalTrts  = trtCountVector(k); // variable for the total number of treatments (N)
         for (unsigned s=0; s<numSims; ++s){ // loop over the number of simulations per a given number of treatments N
+            cout << "Simulating N : "<< totalTrts <<  ", at simulation : "<< s <<" out of "<< numSims <<" simulations"<< endl;
             tspanInf   = scheduleRandomInfection(trtTime,obsTime,totalInfs); // schedules the recolonization times (which is null, no random recolonizations)
             tspanTrt   = scheduleRandomTreatment(trtTime,obsTime,totalTrts); // schedule the treatment times
             // treatment times are schedules as follows,
