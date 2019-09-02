@@ -144,6 +144,8 @@ Results in the manuscript can be reproduced **ONLY** by using the conditional pr
 
 To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PREDICTOR_IMP.m``.
 
+_Note : This whole repository is modified to run locally and serially. Unfortunately, this causes simulations and predictor importance analysis to take considerable amount of computational time. Many parts of this pipeline can be parallelized if the user has access to a cluster (you can contact me for more details on parallelizing the code, easiest way to start with is to run the simulations in parallel for different values of N). In case the user has to run everything locally but has a time constraint, we provided the results used in the manuscript in the_ ``./gutmicrobiota/R/`` _folder of the repository. You can delete this folder if you wish to produce your own results._
+
 **Please feel free to contact me in case of any questions by sending an email to burcu.tepekule@env.ethz.ch**
 
 ## SUMMARY
