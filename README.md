@@ -67,7 +67,7 @@ When all simulations are done, you will have the following folders and text file
 
 ``./SIM_RESULTS/TL_1000_N_<number of treatment courses>/schedule_trtLen.txt``
 
-These text files need to be read and converted to ``.mat`` files for further processing via \text{MATLAB}. 
+These text files need to be read and converted to ``.mat`` files for further processing via MATLAB. 
 ### Related Scripts
 
 ``GUT_BIOTA_SAVEDATA.m`` : \text{MATLAB} script that goes through all the text files generated, and creates two ``.mat`` files, 
@@ -126,8 +126,27 @@ The bash script will generate a subfolder called ``PI_RESULTS``, where all the p
 
 Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. 
 
+To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PREDICTOR_IMP.m``.
+
 **Please feel free to contact me in case of any questions by sending an email to burcu.tepekule@env.ethz.ch**
 
+## SUMMARY
+- To run the simulations and generate data, open the terminal and type,
+
+```sh 
+$ cd ./Desktop/gutbiota/
+$ chmod +x ./GUT_BIOTA_SIM.sh
+$ ./GUT_BIOTA_SIM.sh
+```
+- After all the simulations are complete, open MATLAB and run ``GUT_BIOTA_SAVEDATA.m``.
+-  After the .mat files are generated, stay in MATLAB and run ``CREATE_DATASETS_PI.m``.
+- After the .csv files are generated, go back to the terminal and type,
+
+```sh
+$ chmod +x ./PI.sh
+$ ./PI.sh
+```
+ - To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PREDICTOR_IMP.m``.
 
 ## APPENDIX
 
