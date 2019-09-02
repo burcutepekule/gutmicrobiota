@@ -94,6 +94,8 @@ for tdf=1:25
     binSeqTdf((tdf-1)*sz+1:tdf*sz,maxtdf-15*(tdf-1)+trtTime+1:end)       = -1*ones(sz,15*(tdf-1));
     probsTdf((tdf-1)*sz+1:tdf*sz)                                        = prevs(:,tdf)';
 end
+% PART 1 : SAVE ALL DATA
+
 save('allData','-v7.3');
 
 obsTime      = trtTime+360+5;
