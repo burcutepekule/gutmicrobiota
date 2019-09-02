@@ -74,10 +74,10 @@ These text files need to be read and converted to ``.mat`` files for further pro
 | Number of Treatments (N) | Total days of treatment (\sum d_i) | Duration of last treatment (d_N) | Days to first treatment (t_1-T_I) | Drug-free time after last treatment (T_{df}) | Coefficient of variation (c_v)  | Prevalence of resistance (C_0^{+}/(C_0+C_0^{+})) | 
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 
-``CREATE_DATASETS_PI.m`` : Creates dataset tables (.csv files) suitable for building classification and regression forests for the predictor importance analysis. Currently, this script generates subfolders ``PI_DATA_5E<p>``  for each sample size 5\times10^{p}. Currently, only sample size 5\times10^{3} is used, but the choice of sample size(s) is customizable. Dataset tables will be named as follows, 
+``CREATE_DATASETS_PI.m`` : Creates dataset tables (.csv files) suitable for building classification and regression forests for the predictor importance analysis. Currently, this script generates subfolders ``PI_DATA_5E<p>``  for each sample size 5 x10^{p}. Currently, only sample size 5 x10^{3} is used, but the choice of sample size(s) is customizable. Dataset tables will be named as follows, 
 
-``./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv`` : Classification dataset with sample size of 5\times10^3 data points.
-``./R/PI_DATA_5E3/DATA_REG_TRAIN_POSONLY.csv`` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Regression dataset with sample size of 5\times10^3 data points.
+``./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv`` : Classification dataset with sample size of 5 x10^3 data points.
+``./R/PI_DATA_5E3/DATA_REG_TRAIN_POSONLY.csv`` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Regression dataset with sample size of 5 x10^3 data points.
 
 These .csv files will be used for the predictor importance analysis in the next step.
 
@@ -112,10 +112,11 @@ $ chmod +x ./PI.sh
 ```sh
 $ ./PI.sh
 ```
-The bash script will generate a subfolder called ``PI_RESULTS``, where all the predictor importance analysis results will be saved. Text files will be generated for two different types of predictor importance analysis (classical and conditional), four different number of tree sizes (50,\,100,\,150,\,200), and one sample size (currently only 5\times 10^3) used in growing the random forests. These files will be named as
+The bash script will generate a subfolder called ``PI_RESULTS``, where all the predictor importance analysis results will be saved. Text files will be generated for two different types of predictor importance analysis (classical and conditional), four different number of tree sizes (50,\,100,\,150,\,200), and one sample size (currently only 5 x 10^3) used in growing the random forests. These files will be named as
 
-``./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E3.txt `` : Classical classification predictor importance results with sample size of 5\times10^3 data points. 
-``./R/PI_RESULTS/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of 5\times10^3 data points. 
+``./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E3.txt `` : Classical classification predictor importance results with sample size of 5 x10^3 data points. 
+
+``./R/PI_RESULTS/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of 5 x10^3 data points. 
 
 Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. 
 
