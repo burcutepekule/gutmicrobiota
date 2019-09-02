@@ -140,7 +140,7 @@ The bash script will generate a subfolder called ``PI_RESULTS``, where all the p
 
 ``./R/PI_RESULTS/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of 5x10^3 data points. 
 
-Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. 
+Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. **Note that this step can take time due to the computational cost of calculating conditional predictor importances.**
 
 To plot the predictor importance analysis results, open MATLAB and run ``PLOT_PREDICTOR_IMP.m``.
 
