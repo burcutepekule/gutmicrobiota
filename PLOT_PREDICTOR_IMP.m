@@ -1,7 +1,8 @@
 clear all;close all;clc;
 
 setTrees  = 50:50:200;
-pow       = 3;treeSizePick=200;
+pow       = 3;
+treeSizePick =200; %pick the tree size for plotting
 predNames = {'num_trees','rnd','N','sum_di','d_N','t_1', 'T_df','COM','c_v'};
 varTypes  = repmat({'double'},1,length(predNames));
 
