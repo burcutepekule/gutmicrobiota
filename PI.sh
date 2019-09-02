@@ -2,8 +2,8 @@
 #!/bin/bash
 
 
-minPower=2
-maxPower=4
+minPower=3
+maxPower=3
 
 minTrees=50
 stepTrees=50

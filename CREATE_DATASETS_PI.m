@@ -1,7 +1,7 @@
 clear all;close all;clc;
 rng(3) % for  reproducibility
 log10On = 0;
-for pow = 2:4
+for pow = 3
     clearvars -except pow
     load('predictorMat')
     trainSubsetLen_REG_R = 5*10^pow; 
