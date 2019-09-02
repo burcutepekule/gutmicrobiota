@@ -37,23 +37,23 @@ $ ./GUT_BIOTA_SIM.sh
 The bash script will generate a subfolder called ``SIM_RESULTS``, where all the simulation results will be saved.
 
 Simulation results for,
-  - Different maximum time for treatment period (denoted by T_L (Figure 7) in the manuscript), 
-  - Each number of treatment courses (denoted by N in the manuscript),  
+  - Different maximum time for treatment period (denoted by $$\,T_L$$ (Figure 7) in the manuscript), 
+  - Each number of treatment courses (denoted by $$\,N$$ in the manuscript),  
 
-will be saved in a different folder with the name indexed as ``TL_<number of max days for treatment period>_N_<number of treatment courses>``. Since the maximum time for treatment period is T_L=1000 days, and the number of treatment courses N vary from 1 to 20, the folders will be named as ``TL_1000_N_1``, ``TL_1000_N_2``, ..., ``TL_1000_N_3``.
+will be saved in a different folder with the name indexed as ``TL_<number of max days for treatment period>_N_<number of treatment courses>``. Since the maximum time for treatment period is $$\,T_L=1000$$ days, and the number of treatment courses $$\,N$$ vary from 1 to 20, the folders will be named as ``TL_1000_N_1``, ``TL_1000_N_2``, ..., ``TL_1000_N_3``.
 
-In each folder, you will see four different text files, where each simulation result is kept in a different row (If you run 10 simulations, then you will have 10 rows for each of the files below, with different number of columns depending on the file),
+In each folder, you will see four different text files, where each simulation result is kept in a different row (If you run $$10$$ simulations, then you will have $$10$$ rows for each of the files below, with different number of columns depending on the file),
 
-- ``extCounter.txt`` : Two column text file keeping the information about the time step when C_0^{+} and C_1^{+} goes extinct.
-- ``samplePops.txt`` : Sampled population abundances  [t,C_0,C_0^{+},C_1,C_1^{+}] at sampling times t for the drug-free period after the treatment period (refer to Figure 7 in the manuscript). Each row represents another simulation with As an example, for the first simulation, if the last treatment is at day 120, and the last treatment lasts for 5 days, and the time step of the simulation is 0.01, you will see a text file with the following columns for the first row,
+- ``extCounter.txt`` : Two column text file keeping the information about the time step when $$C_0^{+}$$ and $$C_1^{+}$$ goes extinct.
+- ``samplePops.txt`` : Sampled population abundances  $$[t,C_0,C_0^{+},C_1,C_1^{+}]$$ at sampling times $$t$$ for the drug-free period after the treatment period (refer to Figure 7 in the manuscript). Each row represents another simulation with As an example, for the first simulation, if the last treatment is at day $$120$$, and the last treatment lasts for $$5$$ days, and the time step of the simulation is $$0.01$$, you will see a text file with the following columns for the first row,
 
-| day (T_{df}=0)  | C_0 | C_0^{+} | C_1 | C_1^{+} | day (T_{df}=0)  | C_0 | C_0^{+} | C_1 | C_1^{+} | ... | day (T_{df}=360)  | C_0 | C_0^{+} | C_1 | C_1^{+} | 
+| day ($$T_{df}=0$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | day ($$T_{df}=0$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | ... | day ($$T_{df}=360$$)  | $$C_0$$ | $$C_0^{+}$$ | $$C_1$$ | $$C_1^{+}$$ | 
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 125.01       | ... | ...     | ... | ...     | 140.01        | ... | ...     | ... | ...     | ... | 485.01         | ... | ...     | ... | ...     
 
-- ``schedule_trtInit.txt`` : Initiation day of treatments. Number of columns will depend on the number of treatments, where i^{th} column keeps the initiation day of the i^{th} treatment, denoted by t_{i} in the manuscript (Figure 7).
+- ``schedule_trtInit.txt`` : Initiation day of treatments. Number of columns will depend on the number of treatments, where $$\,i^{th}$$ column keeps the initiation day of the $$\,i^{th}$$ treatment, denoted by $$\,t_{i}$$ in the manuscript (Figure 7).
 
-- ``schedule_trtLen.txt`` : Duration of treatments. Number of columns will depend on the number of treatments, where i^{th} column keeps the duration of the i^{th} treatment, denoted by d_{i} in the manuscript (Figure 7).
+- ``schedule_trtLen.txt`` : Duration of treatments. Number of columns will depend on the number of treatments, where $$\,i^{th}$$ column keeps the duration of the $$\,i^{th}$$ treatment, denoted by $$\,d_{i}$$ in the manuscript (Figure 7).
 
 # Step 2 : Reading and Saving Data
 When all simulations are done, you will have the following folders and text files,
@@ -66,27 +66,27 @@ When all simulations are done, you will have the following folders and text file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/samplePops.txt``
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtInit.txt``
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtLen.txt``
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\vdots
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\vdots$$
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/TL_1000_N_20/extCounter.txt``
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/samplePops.txt``
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtInit.txt``
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/schedule_trtLen.txt``
 
-These text files need to be read and converted to ``.mat`` files for further processing via \text{MATLAB}. 
+These text files need to be read and converted to ``.mat`` files for further processing via $$\text{MATLAB}$$. 
 ### Related Scripts
 
-``GUT_BIOTA_SAVEDATA.m`` : \text{MATLAB} script that goes through all the text files generated, and creates two ``.mat`` files, 
+``GUT_BIOTA_SAVEDATA.m`` : $$\text{MATLAB}$$ script that goes through all the text files generated, and creates two ``.mat`` files, 
 
 - ``allData.mat`` : Raw data including the binary sequence transformation of each simulation (explained in the Supplementary information) is saved.
 - ``predictorMat.mat`` : Predictor matrix generated for the predictor importance analysis. Each column represents a different predictor, in the following order
 
-| Number of Treatments (N) | Total days of treatment (\sum d_i) | Duration of last treatment (d_N) | Days to first treatment (t_1-T_I) | Drug-free time after last treatment (T_{df}) | Coefficient of variation (c_v)  | Prevalence of resistance \Big(C_0^{+}/(C_0+C_0^{+})\Big) | 
+| Number of Treatments $$(N)$$ | Total days of treatment $$(\sum d_i)$$ | Duration of last treatment $$(d_N)$$ | Days to first treatment $$(t_1-T_I)$$ | Drug-free time after last treatment $$(T_{df})$$ | Coefficient of variation $$(c_v)$$  | Prevalence of resistance $$\Big(C_0^{+}/(C_0+C_0^{+})\Big)$$ | 
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 
-``CREATE_DATASETS_PI.m`` : Creates dataset tables (.csv files) suitable for building classification and regression forests for the predictor importance analysis. Currently, this script generates subfolders ``PI_DATA_5E<p>``  for each sample size 5\times10^{p}. Currently, only sample size 5\times10^{3} is used, but the choice of sample size(s) is customizable. Dataset tables will be named as follows, 
+``CREATE_DATASETS_PI.m`` : Creates dataset tables (.csv files) suitable for building classification and regression forests for the predictor importance analysis. Currently, this script generates subfolders ``PI_DATA_5E<p>``  for each sample size $$5\times10^{p}$$. Currently, only sample size $$5\times10^{3}$$ is used, but the choice of sample size(s) is customizable. Dataset tables will be named as follows, 
 
-``./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv`` : Classification dataset with sample size of 5\times10^3 data points.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/DATA_REG_TRAIN_POSONLY.csv`` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Regression dataset with sample size of 5\times10^3 data points.
+``./R/PI_DATA_5E3/DATA_REG_TRAIN_CLS_BLNCD.csv`` : Classification dataset with sample size of $$5\times10^3$$ data points.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/DATA_REG_TRAIN_POSONLY.csv`` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Regression dataset with sample size of $$5\times10^3$$ data points.
 
 These .csv files will be used for the predictor importance analysis in the next step.
 
@@ -121,10 +121,10 @@ $ chmod +x ./PI.sh
 ```sh
 $ ./PI.sh
 ```
-The bash script will generate a subfolder called ``PI_RESULTS``, where all the predictor importance analysis results will be saved. Text files will be generated for two different types of predictor importance analysis (classical and conditional), four different number of tree sizes (50,\,100,\,150,\,200), and one sample size (currently only 5\times 10^3) used in growing the random forests. These files will be named as
+The bash script will generate a subfolder called ``PI_RESULTS``, where all the predictor importance analysis results will be saved. Text files will be generated for two different types of predictor importance analysis (classical and conditional), four different number of tree sizes $$(50,\,100,\,150,\,200)$$, and one sample size (currently only $$5\times 10^3$$) used in growing the random forests. These files will be named as
 
-``./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E3.txt `` : Classical classification predictor importance results with sample size of 5\times10^3 data points. 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of 5\times10^3 data points. 
+``./R/PI_RESULTS/tableNormal_T<number of trees>_CLS_S_5E3.txt `` : Classical classification predictor importance results with sample size of $$5\times10^3$$ data points. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``/tableCond_T<number of trees>_CLS_S_5E3.txt`` &nbsp;&nbsp;&nbsp;&nbsp; : Conditional classification predictor importance results with sample size of $$5\times10^3$$ data points. 
 
 Results in the manuscript can be reproduced **ONLY** by using the conditional predictor importance results, since they account for the biases for the correlations among the variables. Classical predictor importance results are provided for comparison. 
 
