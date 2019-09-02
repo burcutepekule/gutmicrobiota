@@ -286,7 +286,11 @@ void resizeMat(ublas::matrix<T> &m, int len){
 string setDirectoriesFullRandomScheduling(string saveDirectory, int trtTime, int totalTrts, int totalInfs, int save){
     stringstream folderName;
     string folderChar;
-    folderName << saveDirectory<< "TOTAL_"<<trtTime<<"_COUNT_"<<totalTrts<<"_INFS_"<<totalInfs; // subFolder :  "DATA_Cpp/"
+    if(totalInfs==0){
+        folderName << saveDirectory<< "TL_"<<trtTime<<"_N_"<<totalTrts; //
+    }else{
+        folderName << saveDirectory<< "TL_"<<trtTime<<"_N_"<<totalTrts<<"_RC_"<<totalInfs; // In case recolonization events are added
+    }
     folderChar = folderName.str();
     if(save==1){mkdir(folderChar.c_str(),0777);}
     return folderChar;
@@ -1341,22 +1345,22 @@ void updateExtinctBoth(){
 
 
 template <typename T>
-void runGutStocHybrid(ublas::matrix<T> &tspanTrt, ublas::matrix<T> &tspanInf, string folderChar, int save, int loopIdx){
+void runGutStocHybrid(ublas::matrix<T> &tspanTrt, ublas::matrix<T> &tspanInf, string folderChar, int save){
     stringstream stream;
     string fileName;
     
     stream.str(string());
-    stream << "schedule_trtInit_"<<loopIdx;
+    stream << "schedule_trtInit";
     fileName = stream.str();
     saveUblasVecAppend(trtInit,folderChar,fileName,"%.1f ",save);
     
     stream.str(string());
-    stream << "schedule_trtLen_"<<loopIdx;
+    stream << "schedule_trtLen";
     fileName = stream.str();
     saveUblasVecAppend(trtDura,folderChar,fileName,"%.1f ",save);
     
     //    stream.str(string());
-    //    stream << "schedule_infInit_"<<loopIdx;
+    //    stream << "schedule_infInit";
     //    fileName = stream.str();
     //    saveUblasVecAppend(infInit,folderChar,fileName,"%.1f ",save);
     
@@ -1408,33 +1412,33 @@ void runGutStocHybrid(ublas::matrix<T> &tspanTrt, ublas::matrix<T> &tspanInf, st
     }
     
     //    stream.str(string());
-    //    stream << "xEnds_"<<loopIdx;
+    //    stream << "xEnds";
     //    fileName = stream.str();
     //    saveUblasVecAppend(x,folderChar,fileName,"%.5f ",save);
     
     //    stream.str(string());
-    //    stream << "xInt_"<<loopIdx;
+    //    stream << "xInt";
     //    fileName = stream.str();
     //    saveUblasVecAppend(xInt,folderChar,fileName,"%.3f ",save);
     
     //    stream.str(string());
-    //    stream << "ext_"<<loopIdx;
+    //    stream << "ext";
     //    fileName = stream.str();
     //    saveUblasVecAppend(extinct,folderChar,fileName,"%.1f ",save);
     
     stream.str(string());
-    stream << "samplePops_"<<loopIdx;
+    stream << "samplePops";
     fileName = stream.str();
     saveUblasVecAppend(samplePops,folderChar,fileName,"%.14f ",save);
     
     stream.str(string());
-    stream << "c0counter_"<<loopIdx;
+    stream << "extCounter";
     fileName = stream.str();
     saveUblasVecAppend(c0counter,folderChar,fileName,"%.1f ",save);
 }
 
 
-ublas::matrix<double> scheduleRandomTreatment(int trtTime, int obsTime, int totalTrts, int loopIdx){
+ublas::matrix<double> scheduleRandomTreatment(int trtTime, int obsTime, int totalTrts){
     
     resizeVec(trtInit,totalTrts);
     resizeVec(trtDura,totalTrts);
@@ -1524,7 +1528,7 @@ ublas::matrix<double> scheduleRandomTreatment(int trtTime, int obsTime, int tota
     
 }
 
-ublas::matrix<double> scheduleRandomInfection(int trtTime, int obsTime, int totalInfs, int loopIdx){
+ublas::matrix<double> scheduleRandomInfection(int trtTime, int obsTime, int totalInfs){
     
     resizeVec(infInit,totalInfs);
     ublas::matrix<int> tspanTrtReturn(2*totalInfs+1,3);
@@ -1675,11 +1679,10 @@ int main( int argc , char **argv )
     cout << fixed; cout << setprecision(4); // SET THE PRECISION FOR PRINTING OUT STUFF ON THE SCREEN
     save=1; // save = 0 means no files will be saved, save = 1 means files will be saved
     string saveDirectory   = argv[1]; // directory to save files to (this is given in the bash script)
-    int loopIdx            = atoi(argv[2]); // index of the loop -> multiple loops are submitted to work in parallel in case you are working with a cluster - locally one loop can be submitted as well
-    int numSims            = atoi(argv[3]); // number of simulations per loop
-    int resC0              = atoi(argv[4]); // log10(inital resistance frequency of C_0) (set to 0 in the bash sript -> which means C_0(0) = 0 (not 1e0))
-    int resC1              = atoi(argv[5]); // log10(inital resistance frequency of C_1) (set to 6 in the bash sript -> which means C_1(0) = 1e6)
-    int h1bin              = atoi(argv[6]); // binary indicator of interphyla conjugation (=1, conjugation happens between C_0 and C_1, if =0, only intraphyla conjugation
+    int numSims            = atoi(argv[2]); // number of simulations
+    int resC0              = atoi(argv[3]); // log10(inital resistance frequency of C_0) (set to 0 in the bash sript -> which means C_0(0) = 0 (not 1e0))
+    int resC1              = atoi(argv[4]); // log10(inital resistance frequency of C_1) (set to 6 in the bash sript -> which means C_1(0) = 1e6)
+    int h1bin              = atoi(argv[5]); // binary indicator of interphyla conjugation (=1, conjugation happens between C_0 and C_1, if =0, only intraphyla conjugation
     ///////////////////////////// SET RNG ///////////////////////////////
     struct timeval t1;
     gettimeofday(&t1, NULL);
@@ -1722,15 +1725,15 @@ int main( int argc , char **argv )
     for(unsigned k=0; k<trtCountVector.size(); ++k){ // loop over the number of treatments (N in the paper)
         totalTrts  = trtCountVector(k); // variable for the total number of treatments (N)
         for (unsigned s=0; s<numSims; ++s){ // loop over the number of simulations per a given number of treatments N
-            tspanInf   = scheduleRandomInfection(trtTime,obsTime,totalInfs,loopIdx); // schedules the recolonization times (which is null, no random recolonizations)
-            tspanTrt   = scheduleRandomTreatment(trtTime,obsTime,totalTrts,loopIdx); // schedule the treatment times
+            tspanInf   = scheduleRandomInfection(trtTime,obsTime,totalInfs); // schedules the recolonization times (which is null, no random recolonizations)
+            tspanTrt   = scheduleRandomTreatment(trtTime,obsTime,totalTrts); // schedule the treatment times
             // treatment times are schedules as follows,
             // A matrix is generated with 3 columns. First column indicates the starting time, second column indicates the ending time, and third column is a binary indicator of the application of treatment (=0, no treatment, =1, treatment)
             // As an example : say fot the case N=1, the patient had no treatments between day 0 and 10, and a 5 day treatment between day 10 and 15, the matrix would be
             // [0 10 0
             // 10 15 1]
             folderChar = setDirectoriesFullRandomScheduling(saveDirectory,trtTime,totalTrts,totalInfs,save); // Sets the directory name for saving the files
-            runGutStocHybrid(tspanTrt,tspanInf,folderChar,save,loopIdx); // runs the model for all the given settings above
+            runGutStocHybrid(tspanTrt,tspanInf,folderChar,save); // runs the model for all the given settings above
         }
     }
     return 0;

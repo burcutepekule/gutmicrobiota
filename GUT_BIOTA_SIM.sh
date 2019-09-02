@@ -12,4 +12,4 @@ foldername=SIM_RESULTS
 mkdir $foldername
 saveDirectory="./SIM_RESULTS/"
 
-./exe_GUT_BIOTA_SIM $saveDirectory 0 $numsims $resC0 $resC1 $hBin
+./exe_GUT_BIOTA_SIM $saveDirectory $numsims $resC0 $resC1 $hBin
